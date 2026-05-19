@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UniGuide Global - International Student Academic Guide</title>
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="description" content="유학생을 위한 대학생활 학사 가이드" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./src/styles.css" />
+    <script defer src="./src/app.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- View 1: Onboarding -->
+      <section id="view-onboarding" class="view active" aria-label="Onboarding">
+        <div class="step-indicator">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+
+        <div class="onboarding-step active" id="step-1">
+          <div class="onboarding-hero">
+            <div class="hero-icon">
+              <i class="bx bxs-graduation"></i>
+            </div>
+            <h2 class="hero-title" id="txt-onboarding-title">UniGuide Global</h2>
+            <p class="hero-sub" id="txt-onboarding-sub">Choose your preferred language</p>
+          </div>
+          <p class="step-label" id="lbl-lang">1. Choose Language</p>
+          <div class="lang-grid" id="lang-grid"></div>
+          <button class="btn-main next-step" data-next="2" id="btn-next-1" type="button">Next</button>
+        </div>
+
+        <div class="onboarding-step" id="step-2" style="display: none;">
+          <p class="step-label" id="lbl-univ">2. Select University (Jeonbuk)</p>
+          <div id="univ-grid" class="univ-grid"></div>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn-sub prev-step" data-prev="1" id="btn-prev-2" type="button">Back</button>
+            <button class="btn-main next-step" data-next="3" id="btn-next-2" type="button">Next</button>
+          </div>
+        </div>
+
+        <div class="onboarding-step" id="step-3" style="display: none;">
+          <div class="glass-card">
+            <label class="field-label" id="lbl-name">3. Full Name</label>
+            <input type="text" id="user-name" class="styled-input" placeholder="Type your name..." />
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn-sub prev-step" data-prev="2" id="btn-prev-3" type="button">Back</button>
+            <button class="btn-main" id="btn-start" type="button">Let's Explore</button>
+          </div>
+        </div>
+
+        <p class="tiny-note" id="onboarding-note">
+          Your choices are saved on this device. You can change them later in settings.
+        </p>
+      </section>
+
+      <!-- View 2: Dashboard -->
+      <section id="view-home" class="view" aria-label="Home">
+        <header class="header">
+          <button class="profile-chip" id="btn-open-profile" type="button" aria-label="Open profile">
+            <div class="avatar"><img id="user-img" alt="" /></div>
+            <div>
+              <h4 id="display-name" class="profile-name">User</h4>
+              <p id="display-univ" class="profile-sub">University</p>
+            </div>
+          </button>
+          <button class="circle-btn" id="btn-home-bell" type="button" aria-label="Notifications">
+            <i class="bx bxs-bell"></i>
+          </button>
+        </header>
+
+        <h3 class="section-title">
+          <i class="bx bxs-calendar-check"></i> <span id="title-tasks">Today's To-Do</span>
+        </h3>
+        <div class="glass-card" id="task-container"></div>
+
+        <h3 class="section-title">
+          <i class="bx bxs-grid-alt"></i> <span id="title-quick">Campus Guide</span>
+        </h3>
+        <div class="quick-grid">
+          <button class="glass-card quick-card" id="btn-open-academic" type="button">
+            <i class="bx bxs-book-content"></i>
+            <p id="menu-rules">Rules</p>
+          </button>
+          <button class="glass-card quick-card" id="btn-open-phrases" type="button">
+            <i class="bx bxs-chat"></i>
+            <p id="menu-phrases">Phrases</p>
+          </button>
+          <button class="glass-card quick-card" id="btn-open-univinfo" type="button">
+            <i class="bx bxs-school"></i>
+            <p id="menu-univinfo">University Info</p>
+          </button>
+          <button class="glass-card quick-card" id="btn-open-course-reg" type="button" hidden>
+            <i class="bx bxs-calendar-edit"></i>
+            <p id="menu-course-reg">Registration</p>
+          </button>
+        </div>
+
+        <h3 class="section-title">
+          <i class="bx bxs-bookmark-star"></i> <span id="title-terms">Glossary</span>
+        </h3>
+        <div id="term-container"></div>
+      </section>
+
+      <!-- View 3: Campus Phrases -->
+      <section id="view-phrases" class="view" aria-label="Campus phrases">
+        <header class="header header-compact">
+          <button class="icon-back" id="btn-back-from-phrases" type="button" aria-label="Back">
+            <i class="bx bx-chevron-left"></i>
+          </button>
+          <h3 id="v-title-phrases" class="view-title">Campus Phrases</h3>
+          <div class="header-spacer"></div>
+        </header>
+        <div class="toolbar">
+          <button class="chip" id="btn-stop-tts" type="button">
+            <i class="bx bx-stop-circle"></i> <span id="btn-stop-tts-txt">Stop voice</span>
+          </button>
+          <div class="muted-inline" id="tts-hint">Tap the speaker to hear pronunciation.</div>
+        </div>
+        <div id="phrase-categories" class="category-tabs"></div>
+        <div id="phrases-container"></div>
+      </section>
+
+      <!-- View 4: Academic Rules -->
+      <section id="view-academic" class="view" aria-label="Academic rules">
+        <header class="header header-compact">
+          <button class="icon-back" id="btn-back-from-academic" type="button" aria-label="Back">
+            <i class="bx bx-chevron-left"></i>
+          </button>
+          <h3 id="v-title-academic" class="view-title">Academic Rules</h3>
+          <div class="header-spacer"></div>
+        </header>
+        <div id="academic-container"></div>
+      </section>
+
+      <!-- View 4.5: University Info -->
+      <section id="view-univinfo" class="view" aria-label="University info">
+        <header class="header header-compact">
+          <button class="icon-back" id="btn-back-from-univinfo" type="button" aria-label="Back">
+            <i class="bx bx-chevron-left"></i>
+          </button>
+          <h3 id="v-title-univinfo" class="view-title">University Info</h3>
+          <div class="header-spacer"></div>
+        </header>
+        <div id="univinfo-container"></div>
+      </section>
+
+      <section id="view-course-reg" class="view" aria-label="Course registration">
+        <header class="header header-compact">
+          <button class="icon-back" id="btn-back-from-course-reg" type="button" aria-label="Back">
+            <i class="bx bx-chevron-left"></i>
+          </button>
+          <h3 id="v-title-course-reg" class="view-title">Course registration</h3>
+          <div class="header-spacer"></div>
+        </header>
+        <div id="course-reg-container"></div>
+      </section>
+
+      <!-- View 4.6: Notifications -->
+      <section id="view-notifications" class="view" aria-label="Notifications">
+        <header class="header header-compact">
+          <button class="icon-back" id="btn-back-from-notifications" type="button" aria-label="Back">
+            <i class="bx bx-chevron-left"></i>
+          </button>
+          <h3 id="v-title-notifications" class="view-title">Notifications</h3>
+          <div class="header-spacer"></div>
+        </header>
+        <div class="glass-card">
+          <div class="row-between">
+            <div>
+              <div id="notif-perm-title" style="font-weight: 900;">Enable browser notifications</div>
+              <div id="notif-perm-desc" style="margin-top: 6px; color: var(--text-muted); font-weight: 600; line-height: 1.45;">
+                Notifications work best while this page stays open.
+              </div>
+            </div>
+            <button class="chip" id="btn-notif-permission" type="button">
+              <i class="bx bx-bell"></i> <span id="btn-notif-permission-txt">Allow</span>
+            </button>
+          </div>
+          <div class="divider"></div>
+          <div class="row-between">
+            <div id="notif-test-desc" style="color: var(--text-muted); font-weight: 700;">Send a test notification</div>
+            <button class="chip" id="btn-notif-test" type="button">
+              <i class="bx bx-send"></i> <span id="btn-notif-test-txt">Test</span>
+            </button>
+          </div>
+        </div>
+        <div id="notifications-container"></div>
+      </section>
+
+      <!-- View 5: Profile & Settings -->
+      <section id="view-profile" class="view" aria-label="Profile and settings">
+        <header class="header header-compact">
+          <button class="icon-back" id="btn-back-from-profile" type="button" aria-label="Back">
+            <i class="bx bx-chevron-left"></i>
+          </button>
+          <h3 id="v-title-profile" class="view-title">My Page</h3>
+          <div class="header-spacer"></div>
+        </header>
+
+        <div class="glass-card profile-card">
+          <div class="avatar avatar-large"><img id="user-img-large" alt="" /></div>
+          <h3 id="profile-name" class="profile-name-lg">Name</h3>
+          <p id="profile-univ" class="profile-sub-lg">University</p>
+        </div>
+
+        <h3 class="section-title">
+          <i class="bx bxs-cog"></i> <span id="title-settings">Settings</span>
+        </h3>
+        <div class="glass-card">
+          <button class="setting-item" id="btn-open-onboarding" type="button">
+            <div class="setting-icon icon-blue"><i class="bx bx-globe"></i></div>
+            <div class="setting-body">
+              <p id="set-lang" class="setting-title">Language</p>
+              <p id="set-lang-sub" class="setting-sub">Change app language</p>
+            </div>
+            <i class="bx bx-chevron-right setting-arrow"></i>
+          </button>
+
+          <div class="setting-item disabled" aria-disabled="true">
+            <div class="setting-icon icon-pink"><i class="bx bx-id-card"></i></div>
+            <div class="setting-body">
+              <p id="set-visa" class="setting-title">Visa Status</p>
+              <p id="set-visa-sub" class="setting-sub">Manage D-2 registration</p>
+            </div>
+            <i class="bx bx-lock-alt setting-arrow"></i>
+          </div>
+
+          <button class="setting-item" id="btn-open-notifications" type="button">
+            <div class="setting-icon icon-orange"><i class="bx bx-bell"></i></div>
+            <div class="setting-body">
+              <p id="set-alarm" class="setting-title">Notifications</p>
+              <p id="set-alarm-sub" class="setting-sub">Campus alerts & reminders</p>
+            </div>
+            <i class="bx bx-chevron-right setting-arrow"></i>
+          </button>
+        </div>
+
+        <div class="footer-version">
+          <p>UniGuide Global v1.1.0</p>
+          <button class="danger-mini" id="btn-reset" type="button">Reset saved data</button>
+        </div>
+      </section>
+
+      <!-- Bottom Navigation -->
+      <nav class="nav-bar" id="app-nav" aria-label="Bottom navigation">
+        <button class="nav-item active" id="nav-home-btn" type="button">
+          <i class="bx bxs-home-smile"></i><span id="nav-home">Home</span>
+        </button>
+        <button class="nav-item" id="nav-phrases-btn" type="button">
+          <i class="bx bxs-message-rounded-dots"></i><span id="nav-phrases">Talk</span>
+        </button>
+        <button class="nav-item" id="nav-info-btn" type="button">
+          <i class="bx bxs-layer"></i><span id="nav-info">Guide</span>
+        </button>
+        <button class="nav-item" id="nav-profile-btn" type="button">
+          <i class="bx bxs-user-circle"></i><span id="nav-profile">My</span>
+        </button>
+      </nav>
+    </div>
+  </body>
+</html>
+
